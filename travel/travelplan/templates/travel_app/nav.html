@@ -1,0 +1,23 @@
+{% load static %}
+<nav>
+    <div class="container">
+        <div class="box minibox between">
+            <div class="minibox">
+                <div class="logo">
+                    <a href="{% url 'travel_app:main' %}">
+                    <img src="{% static 'img/logo.png' %}" alt=""/>
+                    </a>
+                </div>
+                당신의 계획을 이곳에!
+            </div>
+            <div class="minibox">
+                {% if user.is_authenticated %}
+                    <span>{{user.nickname}}</span>
+                    <a href="{% url 'user_app:logout' %}" class="ghost-button">로그아웃</a>
+                {% else %}
+                    <a href="{% url 'user_app:login' %}" class="ghost-button" style="color: #1e1e1e">로그인</a>
+                {% endif %}
+            </div>
+        </div>    
+    </div>
+</nav>

@@ -1,0 +1,33 @@
+nav {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    z-index: 999;
+    color: #000000;
+    text-decoration: none;
+    font-family: 'Pretendard', sans-serif;
+    padding: 14px 0;
+}
+
+.container {
+    justify-content: space-between;
+}
+
+.box {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.minibox {
+    display: flex;
+    /* justify-content: space-between; */
+}

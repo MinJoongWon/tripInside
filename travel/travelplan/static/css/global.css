@@ -1,0 +1,11 @@
+* {
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: rgb(148, 243, 165);
+}
+
+.content-box {
+    margin-top: 65px;
+}

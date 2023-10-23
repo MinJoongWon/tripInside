@@ -1,11 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
+    <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
 </head>
 <body>
-    nothing here
+    {% include 'travel_app/nav.html' %}
+    <div class="content-box">        
+    띄운다 게시글 조회수순으로
+        <a href="{% url 'travel_app:write' %}">
+            <div class="floating-button" id="write-button">
+                계획 쓰기
+            </div>
+        </a>
+        <a href="{% url 'travel_app:write' %}">
+            <div class="floating-button" id="chat-button">
+                GPT <br> 물어보기
+            </div>
+        </a>
+        <div>
+            표시 형태는
+            이미지, 작성자(닉네임), 여행일자, 조회수, 댓글수, 표현수, 여행전중완 표기 <br>
+            태그는 가능하다면 드롭다운식으로/국가별
+        </div>
+    </div>
+    {% include 'travel_app/footer.html' %}
 </body>
 </html>

@@ -4,4 +4,8 @@ from . import views
 
 app_name = "travel_app"
 urlpatterns = [
-    path("", views.main, name="main"),]
+    path("", views.main, name="main"),
+    
+    path("wirte/", views.write, name="write"),
+
+]

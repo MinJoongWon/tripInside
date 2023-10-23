@@ -166,3 +166,5 @@ local_secrets.json
 migrations
 crawling
 .vscode
+
+secrets.json

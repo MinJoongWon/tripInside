@@ -1,0 +1,35 @@
+.floating-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #36d1bf;
+    border-radius: 25%;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 1000;
+}
+
+#write-button {
+    bottom: 120px;
+}
+
+#chat-button {
+    bottom: 40px;
+}
+
+.floating-button a {
+    color: #fff;
+}
+
+.floating-button:hover {
+    background-color: #42f7e2;
+    cursor: pointer;
+}
