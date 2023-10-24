@@ -8,4 +8,8 @@ urlpatterns = [
     
     path("wirte/", views.write, name="write"),
 
+    path("main/<int:pk>", views.main_post, name="main_post"),
+
+    path("create_form/", views.create_post, name="create_form"),
+
 ]

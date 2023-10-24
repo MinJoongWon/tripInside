@@ -14,7 +14,6 @@
 <body>
     {% include 'travel_app/nav.html' %}
     <div class="content-box">        
-    띄운다 게시글 조회수순으로
         <a href="{% url 'travel_app:write' %}">
             <div class="floating-button" id="write-button">
                 계획 쓰기
@@ -26,8 +25,33 @@
             </div>
         </a>
         <div>
-            표시 형태는
+            nav에 잡아먹히는거 수정하기
             이미지, 작성자(닉네임), 여행일자, 조회수, 댓글수, 표현수, 여행전중완 표기 <br>
+            표기중.. 직사각형 스타일이면좋겠고 넓이에따라 1개에서 3개까지만 표기하도록
+            <div>
+                {% for post in posts %}
+                <div class="card-box">
+                    <a href="{% url 'travel_app:main_post' post.pk %}" class="trade-text-link">
+                      <div class="card-img">
+                        {% if post.postimage %}
+                          <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
+                        {% endif %}
+                      </div>
+                      <div class="card-info-box">
+                        <h5>{{ post.title }}</h5>
+                        <div class="flex-box">
+                          <p>조회
+                            {{ post.view }}</p>
+                          <p>댓글수</p>
+                          <p>여행상태(전중완)</p>
+                          <p>여행일자
+                            {{ post.chat_id }}</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                {% endfor %}
+            </div>
             태그는 가능하다면 드롭다운식으로/국가별
         </div>
     </div>
