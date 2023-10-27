@@ -18,8 +18,8 @@ class PostPlan(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post_plan = models.ForeignKey(PostPlan, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_comments')
     comment = models.TextField(max_length=300)
     chrmt_upload_date = models.DateTimeField(auto_now_add=True)
     like_cnt = models.IntegerField(default=0, null=True)

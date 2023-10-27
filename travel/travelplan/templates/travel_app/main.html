@@ -19,15 +19,12 @@
                 계획 쓰기
             </div>
         </a>
-        <a href="{% url 'travel_app:write' %}">
+        <a href="">
             <div class="floating-button" id="chat-button">
                 GPT <br> 물어보기
             </div>
         </a>
         <div>
-            nav에 잡아먹히는거 수정하기
-            이미지, 작성자(닉네임), 여행일자, 조회수, 댓글수, 표현수, 여행전중완 표기 <br>
-            표기중.. 직사각형 스타일이면좋겠고 넓이에따라 1개에서 3개까지만 표기하도록
             <div>
                 {% for post in posts %}
                 <div class="card-box">
@@ -45,14 +42,12 @@
                           <p>댓글수</p>
                           <p>여행상태(전중완)</p>
                           <p>여행일자
-                            {{ post.chat_id }}</p>
                         </div>
                       </div>
                     </a>
                   </div>
                 {% endfor %}
             </div>
-            태그는 가능하다면 드롭다운식으로/국가별
         </div>
     </div>
     {% include 'travel_app/footer.html' %}

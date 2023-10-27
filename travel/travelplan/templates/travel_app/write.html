@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <a href="">
+        <div class="floating-button" id="chat-button">
+            GPT <br> 물어보기
+        </div>
+    </a>
     {% include 'travel_app/nav.html' %}
     <div class="content-box">
       <div class="container">
@@ -18,22 +23,19 @@
         {% block content %}
           <div class="about-trade">
             <div class="container">
-              <form class="write-box" method="POST" action="{% if post %}{% url 'dangun_app:edit' post.id %}{% else %}{% url 'travel_app:create_form' %}{% endif %}" enctype="multipart/form-data">
+              <form class="write-box" method="POST" action="{% if post %}{% url 'travel_app:edit' post.id %}{% else %}{% url 'travel_app:create_form' %}{% endif %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="flex-box">
                   <label class="img-upload">
                     <img src="{% if post %}{{ post.thumbnail.url }}{% else %}{% static 'img/icon_photo.png' %}{% endif %}" alt="이미지" id="imagePreview">
-                    <input type="file" name="thumbnail" accept="image/*" style="display: none;" onchange="previewImage(event);">
+                    <input type="file" name="postimage" accept="image/*" style="display: none;" onchange="previewImage(event);">
                   </label>
                   <div>
                     <div class="flex-box column baseline title-box">
                       <label for="title">제목</label>
                       <input type="text" name="title" placeholder="제목" required="required" value="{% if post %}{{ post.title }}{% endif %}">
                       <label for=" price">장소</label>
-                      <input type="text" name="price" placeholder="장소" required="required" value="{% if post %}{{ post.price }}{% endif %}">
-                      <div class="dropdown-content">
-                        {% comment %} <p>{% include 'dangun_app/category.html' %}</p> {% endcomment %}
-                      </div>
+                      <input type="text" name="price" placeholder="장소" required="required" value="{% if post %}{{ post.product }}{% endif %}">
                     </div>
                   </div>
                 </div>
@@ -47,7 +49,7 @@
                 </div>
                 <div class="full-box">
                   <label for="location" class="block-box">여행 희망 날짜</label>
-                  <input type="text" name="location" placeholder="여행 희망 날짜" required="required" value="{% if post %}{{ post.location }}{% endif %}">
+                  <input type="text" name="location" placeholder="여행 희망 날짜" required="required" value="{% if post %}{{ post.product }}{% endif %}">
                 </div>
                 <div class="submit-button-box">
                   {% if post %}

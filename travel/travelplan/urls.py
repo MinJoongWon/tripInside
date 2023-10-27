@@ -12,4 +12,8 @@ urlpatterns = [
 
     path("create_form/", views.create_post, name="create_form"),
 
+    path('edit/<int:post_id>/', views.edit_post, name='edit'),
+
+    path("main_post/<int:post_id>", views.add_comment, name="add_comment"),
+
 ]

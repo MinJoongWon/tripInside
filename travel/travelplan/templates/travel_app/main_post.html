@@ -4,14 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
     <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
-    <title>게시글</title>
 </head>
 <body>
-    
+    {% include 'travel_app/nav.html' %}
+    <div class="content-box">
+      <div class="container column">
+        <div class="post-box">
+          {% block content %}
+          <img src="{{ post.postimage.url }}" alt="{{ post.title }}" class="block-box">
+            <div class="flex-box between info-button-box">
+              <div class="user-info">
+                <h6>{{ post.author.nickname }}</h6>
+                <p>{{ user.product }}</p>
+              </div>
+            {% if post.author.id == user.id %}
+                <div class="flex-box button-box">
+                  <a href="{% url 'travel_app:edit' post.id %}">
+                    <button class="grey">수정하기</button>
+                  </a>
+                </div>
+            {% endif %}
+            <hr class="line">
+            <div class="post-info-box">
+              <div class="flex-box between">
+                <h3>{{ post.title }}</h3>
+                <h4>{{ post.status }}</h4>
+              </div>
+              <p>설명 | {{ post.description }}</p>
+              <div class="location-views-box flex-box between">
+                <p>희망여행일자 | {{ post.location }}</p>
+                <p>조회수 | {{ post.view }} </p> 
+                <p>좋아요 | 👍 {{ post.like }}</p>
+                <p>작성일 | {{ post.created_at }}</p> 
+              </div>
+            </div>
+            <hr class="line">
+            <div class="comments">
+              <h3>Comments</h3>
+              <ul>
+                {% for comment in comments %}
+                  <li>
+                    <p class="author">{{ comment.author }}:</p>
+                    <p class="text">{{ comment.text }}</p>
+                  </li>
+                {% empty %}
+                  <li>댓글이 없습니다.</li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'travel_app:add_comment' post_id=post.id %}">
+              {% csrf_token %}
+              댓글 | <input type="text" placeholder="적기전에 생각했나요?">
+              <button class='comment-button' type="submit">댓글 작성</button>
+            </form>
+            {% else %}
+            <p>댓글을 작성하려면 로그인이 필요합니다.</p>
+            {% endif %}
+            {% endblock %}
+        </div>
+      </div>
+    </div>
+    {% include 'travel_app/footer.html' %}
+
 </body>
 </html>
