@@ -75,6 +75,8 @@ def edit_post(request, post_id):
         post.product = request.POST.get("product", "")
         post.description = request.POST.get("description", "")
         post.status = request.POST.get("status", "")
+        post.location = request.POST.get("location", "")
+        post.traveldate = request.POST.get("traveldate", "")
         if "postimage" in request.FILES:
             post.postimage = request.FILES["postimage"]
         else:

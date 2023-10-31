@@ -26,7 +26,6 @@
             <div class="flex-box">
               <div class="user-info">
                 <h6>{{ post.author.nickname }}</h6>
-                <p>{{ user.product }}</p>
               </div>
             {% if post.author.id == user.id %}
                 <div class="btn-box">
@@ -45,7 +44,8 @@
                 <h3>{{ post.title }}</h3>
                 <h4>{{ post.status }}</h4>
               </div>
-              <p>설명<br>{{ post.description }}</p>
+              <p>여행지 | {{ user.location }}</p>
+              <p>설명 |<br>{{ post.description }}</p>
               <div class="location-views-box flex-box between">
                 <p>희망여행일자 | {{ post.location }}</p>
                 <p>조회수 | {{ post.view }} </p> 

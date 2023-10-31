@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
     <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
     <link rel="icon" href="{% static 'img/favicon.png'%}">
@@ -20,9 +19,9 @@
     </a>
     {% include 'travel_app/nav.html' %}
     <div class="content-box">
-      <div class="container">
+      <div class="bigbox">
         {% block content %}
-          <div class="about-trade">
+          <div class="">
             <div class="container2">
               <form class="write-box" method="POST" action="{% if post %}{% url 'travel_app:edit' post.id %}{% else %}{% url 'travel_app:create_form' %}{% endif %}" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -31,12 +30,16 @@
                     <img src="{% if post %}{{ post.thumbnail.url }}{% else %}{% static 'img/camera.jpg' %}{% endif %}" alt="이미지" id="imagePreview">
                     <input type="file" name="postimage" accept="image/*" style="display: none;" onchange="previewImage(event);">
                   </label>
-                  <div>
-                    <div class="flex-box column baseline title-box">
-                      <label for="title">제목</label>
-                      <input type="text" name="title" placeholder="제목" required="required" value="{% if post %}{{ post.title }}{% endif %}">
-                      <label for=" price">장소</label>
-                      <input type="text" name="price" placeholder="장소" required="required" value="{% if post %}{{ post.product }}{% endif %}">
+                  <div class="middlebox">
+                    <div class="title-box">
+                      <div>
+                        <label for="title">제목</label>
+                        <input type="text" name="title" placeholder="제목" required="required" value="{% if post %}{{ post.title }}{% endif %}">
+                        <label for=" location">장소</label>
+                        <input type="text" name="location" placeholder="장소" value="{% if post %}{{ post.location }}{% endif %}">
+                        <label for=" status">상태</label>
+                        <input type="text" name="status" placeholder="여행상태" value="{% if post %}{{ post.status }}{% endif %}">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -49,15 +52,15 @@
 
                 </div>
                 <div class="full-box">
-                  <label for="location" class="block-box">여행 희망 날짜</label>
-                  <input type="text" name="location" placeholder="여행 희망 날짜" required="required" value="{% if post %}{{ post.product }}{% endif %}">
+                  <label for="traveldate" class="block-box">여행 희망 날짜</label>
+                  <input type="text" name="traveldate" placeholder="여행 희망 날짜" required="required" value="{% if post %}{{ post.product }}{% endif %}">
                 </div>
                 <div class="submit-button-box">
                   {% if post %}
                     <button type="submit">수정하기</button>
                     <button type="submit">삭제하기</button>
                   {% else %}
-                    <button type="submit">전송</button>
+                    <button type="submit">게시</button>
                   {% endif %}
                 </div>
               </form>

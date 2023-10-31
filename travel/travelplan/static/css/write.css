@@ -26,9 +26,9 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.container2 {
+.bigbox {
     max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 /* Write Box */
@@ -42,13 +42,14 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    align-content: center;
 }
 
 .img-upload {
     position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 25%;
     overflow: hidden;
     border: 2px solid #000;
 }
@@ -59,10 +60,20 @@
     object-fit: cover;
 }
 
+.middlebox {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
 .title-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
     flex-grow: 1;
     margin-left: 20px;
 }
+
 
 .title-box input {
     width: 100%;
