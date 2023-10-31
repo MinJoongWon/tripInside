@@ -5,4 +5,36 @@
     display: flex;
     font-family: 'Pretendard', sans-serif;
     margin-top: 112px;
+    /* 뚫고나갈때 주면 스크롤생기고 안에 갇힌다. */
+    /* overflow: auto; */
+}
+
+.foot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.foot-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.foot-box p {
+    display: block;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.foot-box img {
+    width: 30px;
+    height: 30px;
 }

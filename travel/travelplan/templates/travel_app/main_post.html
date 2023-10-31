@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
   <link rel="stylesheet" type="text/css" href="{% static "css/post.css" %} ">    
   <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
+  <link rel="icon" href="{% static 'img/favicon.png'%}">
   <title>게시글-{{post.title}}</title>
 </head>
 <body>
@@ -17,10 +18,10 @@
         <div class="post-box">
           {% block content %}
           {% if post.postimage %}
-          <img src="{{ post.postimage.url }}" alt="{{ post.title }}" class="block-box">
+          <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
           {% else %}
           <!-- 기본 이미지 또는 이미지 없음 표시 -->
-          <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}" class="block-box">
+          <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}">
           {% endif %}
             <div class="flex-box">
               <div class="user-info">
@@ -28,13 +29,13 @@
                 <p>{{ user.product }}</p>
               </div>
             {% if post.author.id == user.id %}
-                <div class="flex-box button-box">
+                <div class="btn-box">
                   <a href="{% url 'travel_app:edit' post.id %}">
-                    <button class="grey">수정하기</button>
+                    <button class="upbtn">수정하기</button>
                   </a>
                   <form method="POST" action="{% url 'travel_app:delete' post.id %}">
                     {% csrf_token %}
-                    <button type="submit" onclick="return confirmDelete();">삭제하기</button>
+                    <button type="submit" class='delbtn' onclick="return confirmDelete();">삭제하기</button>
                   </form>
                 </div>
             {% endif %}
@@ -44,7 +45,7 @@
                 <h3>{{ post.title }}</h3>
                 <h4>{{ post.status }}</h4>
               </div>
-              <p>설명 | {{ post.description }}</p>
+              <p>설명<br>{{ post.description }}</p>
               <div class="location-views-box flex-box between">
                 <p>희망여행일자 | {{ post.location }}</p>
                 <p>조회수 | {{ post.view }} </p> 

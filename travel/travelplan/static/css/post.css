@@ -15,5 +15,47 @@
 }
 
 .line {
-    width: 500px;
+    width: 700px;
+}
+
+.user-info h6 {
+    display: block;
+    font-size: 25px;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.btn-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.post-info-box {
+    max-width: 700px;
+}
+
+.post-info-box p {
+    word-wrap: break-word;
+}
+
+.upbtn {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3eb06a;
+    color: #fff;
+    cursor: pointer;
+}
+
+.delbtn {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff6b6b;
+    color: #fff;
+    cursor: pointer;
 }
