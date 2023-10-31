@@ -2,23 +2,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
-    <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
+  <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
+  <link rel="stylesheet" type="text/css" href="{% static "css/post.css" %} ">    
+  <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
+  <title>게시글-{{post.title}}</title>
 </head>
 <body>
     {% include 'travel_app/nav.html' %}
     <div class="content-box">
-      <div class="container column">
+      <div class="post-container">
         <div class="post-box">
           {% block content %}
+          {% if post.postimage %}
           <img src="{{ post.postimage.url }}" alt="{{ post.title }}" class="block-box">
-            <div class="flex-box between info-button-box">
+          {% else %}
+          <!-- 기본 이미지 또는 이미지 없음 표시 -->
+          <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}" class="block-box">
+          {% endif %}
+            <div class="flex-box">
               <div class="user-info">
                 <h6>{{ post.author.nickname }}</h6>
                 <p>{{ user.product }}</p>
@@ -28,6 +32,10 @@
                   <a href="{% url 'travel_app:edit' post.id %}">
                     <button class="grey">수정하기</button>
                   </a>
+                  <form method="POST" action="{% url 'travel_app:delete' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirmDelete();">삭제하기</button>
+                  </form>
                 </div>
             {% endif %}
             <hr class="line">
@@ -74,4 +82,11 @@
     {% include 'travel_app/footer.html' %}
 
 </body>
+<script>
+  function confirmDelete() {
+    var result = confirm("정말 진짜 삭제하시겠습니까?");
+    return result;  // 확인을 누르면 true, 취소를 누르면 false 반환
+  }
+</script>
+
 </html>

@@ -4,39 +4,26 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm
 
 from django.urls import reverse
+
 # Create your views here.
+
 
 def main(request):
     list_post = PostPlan.objects.all().order_by("-view")
     return render(request, "travel_app/main.html", {"posts": list_post})
+
 
 @login_required
 def write(request, post_id=None):
     post = None
     if post_id:
         try:
-            post = PostPlan.objects.get(id=post_id)  # 'PostProduct' 대신 'PostPlan'을 사용.
-        except PostPlan.DoesNotExist:  # 'PostProduct' 대신 'PostPlan'을 사용.
+            post = PostPlan.objects.get(id=post_id)
+        except PostPlan.DoesNotExist:
             pass
     context = {"post": post}
     return render(request, "travel_app/write.html", context)
 
-
-# # 게시글 업로드
-# @login_required
-# def create_post(request):
-#     if request.method == "POST":
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             post = form.save(commit=False)  # 임시 저장
-#             post.author_id = request.user.id
-#             post.save()  # 최종 저장
-#             return redirect("travel_app:main_post", pk=post.pk)  # 저장 후 상세 페이지로 이동
-#         else:
-#             print(form.errors)  # 에러출력추가
-#     else:
-#         form = PostForm()
-#     return render(request, "travel_app/main_post.html", {"form": form})
 
 @login_required
 def create_post(request):
@@ -45,6 +32,10 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)  # 임시 저장
             post.author_id = request.user.id
+            if "postimage" in request.FILES:
+                post.postimage = request.FILES["postimage"]
+            else:
+                post.postimage = None
             post.save()  # 최종 저장
             return redirect("travel_app:main_post", pk=post.pk)  # 저장 후 상세 페이지로 이동
         else:
@@ -53,9 +44,10 @@ def create_post(request):
         form = PostForm()
     return render(request, "travel_app/main.html", {"form": form})
 
-#게시글 상세보기
+
+# 게시글 상세보기
 def main_post(request, pk):
-    #poss id 번호 불러옴
+    # poss id 번호 불러옴
     post = get_object_or_404(PostPlan, pk=pk)
     if request.method == "POST":
         # html에서 delete-button name의 인풋을 눌러서 작동
@@ -68,14 +60,12 @@ def main_post(request, pk):
     post.save()
     comments = Comment.objects.all().order_by("-chrmt_upload_date")
 
-    context = {
-        "post": post,
-        "comments": comments
-    }
+    context = {"post": post, "comments": comments}
 
     return render(request, "travel_app/main_post.html", context)
 
-#수정하기
+
+# 수정하기
 def edit_post(request, post_id):
     post = get_object_or_404(PostPlan, id=post_id)
     if post:
@@ -87,6 +77,8 @@ def edit_post(request, post_id):
         post.status = request.POST.get("status", "")
         if "postimage" in request.FILES:
             post.postimage = request.FILES["postimage"]
+        else:
+            post.postimage = None
         post.save()
         return redirect("travel_app:main_post", pk=post_id)
     context = {"post": post}
@@ -94,7 +86,22 @@ def edit_post(request, post_id):
     return render(request, "travel_app/write.html", context=context)
 
 
-#댓글달기
+# 삭제하기
+@login_required
+def post_delete(request, pk):
+    post = get_object_or_404(PostPlan, pk=pk)
+
+    if request.user != post.author:
+        return redirect("travel_app:main", pk=post.pk)
+
+    if request.method == "POST":
+        post.delete()
+        return redirect("travel_app:main")
+
+    return render(request, "travel_app/main.html", {"post": post})
+
+
+# 댓글달기
 def add_comment(request, post_id):
     post = get_object_or_404(PostPlan, id=post_id)
 

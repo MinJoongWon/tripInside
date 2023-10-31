@@ -5,28 +5,34 @@
 
   <head>
     <meta charset="UTF-8"/>
+    <title>login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"/>
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}"/>
   </head>
 
-  <body class="back-ye">
-    <div class="container">
+  <body>
+    {% include "travel_app/nav.html" %}
+    <div class="login-box">
         <div class="login-container">
           <form method="post" class="login-form">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="login-button">로그인</button>
           </form>
-          <p class="register-reco">
-            회원이 아니신가요?
+          <p>회원이 아니신가요?
             <a href="{% url 'user_app:register' %}" class="bold">회원가입</a>
           </p>
+          <div class="btn-box">
+            <button type="submit" class="login-button">구글</button>
+            <button type="submit" class="login-button">네이버</button>
+            <button type="submit" class="login-button">카카오</button>
+          </div>
         </div>
+
     </div>
   </body>
 

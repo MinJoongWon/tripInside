@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-'''
+"""
 secret setting
-'''
+"""
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 
@@ -37,6 +37,7 @@ def get_secret(setting, secrets=secrets):
     except KeyError:
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
+
 
 # get_secret 함수를 호출하여 json SECRET_KEY 키의 값 적용
 # 시크릿파일 열기 끝
@@ -62,9 +63,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'travelplan',
-    'user_app',
-    'crawling_app',
+    "travelplan",
+    "user_app",
 ]
 
 MIDDLEWARE = [
@@ -161,5 +161,5 @@ LOGOUT_REDIRECT_URL = "travel_app:main"
 # 기본 유저를 커스텀 유저로 변경한다
 AUTH_USER_MODEL = "user_app.CustomUser"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

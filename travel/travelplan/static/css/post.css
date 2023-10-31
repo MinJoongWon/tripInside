@@ -1,0 +1,19 @@
+* {
+    font-family: 'Pretendard', sans-serif;
+}
+
+.post-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-box img {
+    display: flex;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.line {
+    width: 500px;
+}

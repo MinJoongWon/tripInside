@@ -10,25 +10,27 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}"/>
   </head>
-  
-  <body class="back-ye">
+  {% include "travel_app/nav.html" %}
+  <body class="login-box">
     <div class="container">
         <div class="login-container">
-          <form method="post" class="login-form">
+          <form method="post" class="register-form">
             {% csrf_token %}
-            {{ form.as_ul }}
-            <button type="submit" class="login-button">회원등록</button>
+            {{ form.as_p }}
+            <button type="submit" class="register-button">회원등록</button>
           </form>
-          <button type="submit" class="login-button">구글등록</button><br>
-          <button type="submit" class="login-button">네이버등록</button><br>
-          <button type="submit" class="login-button">카카오등록</button>
-          <p class="register-reco">
+          <p class="already">
             이미 계정이 있으신가요?
             <a href="{% url 'user_app:login' %}" class="bold">로그인</a>
           </p>
+          <div class="btn-box">
+            <button type="submit" class="login-button">구글등록</button>
+            <button type="submit" class="login-button">네이버등록</button>
+            <button type="submit" class="login-button">카카오등록</button>
+          </div>
         </div>
     </div>
   </body>

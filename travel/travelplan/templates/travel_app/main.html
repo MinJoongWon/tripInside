@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
     <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
 </head>
 <body>
@@ -19,37 +18,39 @@
                 계획 쓰기
             </div>
         </a>
-        <a href="">
             <div class="floating-button" id="chat-button">
-                GPT <br> 물어보기
+                GPT대화 
             </div>
-        </a>
-        <div>
-            <div>
-                {% for post in posts %}
-                <div class="card-box">
-                    <a href="{% url 'travel_app:main_post' post.pk %}" class="trade-text-link">
-                      <div class="card-img">
-                        {% if post.postimage %}
-                          <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
-                        {% endif %}
+            <div class="card-container">
+              {% for post in posts %}
+              <div class="card-box">
+                  <a href="{% url 'travel_app:main_post' post.pk %}">
+                    <div class="card-img">
+                      {% if post.postimage %}
+                      <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
+                      {% else %}
+                        <!-- 기본 이미지 또는 이미지 없음 표시 -->
+                      <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}">
+                      {% endif %}
+                    </div>
+                    <div class="card-info-box">
+                      <h5>{{ post.title }}</h5>
+                      <div class="flex-box">
+                        <p>여행상태 |{{post.status}}</p>
+                        <p>설명 |{{post.description|truncatechars:18}}</p>
+                        <p>조회수   | {{ post.view }}</p>
+                        <p>댓글수   | 0{{post.comment}}</p>
+                        <p>여행일자 | {{post.traveldate}}</p>
                       </div>
-                      <div class="card-info-box">
-                        <h5>{{ post.title }}</h5>
-                        <div class="flex-box">
-                          <p>조회
-                            {{ post.view }}</p>
-                          <p>댓글수</p>
-                          <p>여행상태(전중완)</p>
-                          <p>여행일자
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                {% endfor %}
-            </div>
-        </div>
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+          </div>
+          
     </div>
+
     {% include 'travel_app/footer.html' %}
 </body>
+<script src="{% static 'js/chat.js' %}"></script> 
 </html>

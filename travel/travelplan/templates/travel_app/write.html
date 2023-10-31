@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>기록하기</title>
+    <title>계획중</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %} ">    
+    <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
   </head>
 
   <body>
@@ -19,15 +20,14 @@
     {% include 'travel_app/nav.html' %}
     <div class="content-box">
       <div class="container">
-
         {% block content %}
           <div class="about-trade">
-            <div class="container">
+            <div class="container2">
               <form class="write-box" method="POST" action="{% if post %}{% url 'travel_app:edit' post.id %}{% else %}{% url 'travel_app:create_form' %}{% endif %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="flex-box">
                   <label class="img-upload">
-                    <img src="{% if post %}{{ post.thumbnail.url }}{% else %}{% static 'img/icon_photo.png' %}{% endif %}" alt="이미지" id="imagePreview">
+                    <img src="{% if post %}{{ post.thumbnail.url }}{% else %}{% static 'img/camera.jpg' %}{% endif %}" alt="이미지" id="imagePreview">
                     <input type="file" name="postimage" accept="image/*" style="display: none;" onchange="previewImage(event);">
                   </label>
                   <div>
@@ -54,6 +54,7 @@
                 <div class="submit-button-box">
                   {% if post %}
                     <button type="submit">수정하기</button>
+                    <button type="submit">삭제하기</button>
                   {% else %}
                     <button type="submit">전송</button>
                   {% endif %}

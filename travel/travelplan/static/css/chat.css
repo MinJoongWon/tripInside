@@ -1,109 +1,16 @@
-* {
-    font-family: 'Pretendard', sans-serif;
-}
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.card-box {
-    display: flex;
-    flex: 0 0 calc(50% - 10px);
-    /* 가로로 2개씩 배치, 카드 사이에 10px 간격 */
-    margin-bottom: 20px;
-    /* 수직 간격 */
-}
-
-.card-box:hover {
-    opacity: 0.8;
-}
-
-.card-box a {
-    display: flex;
-    text-decoration: none;
-    justify-content: space-between;
-    max-width: 700px;
-}
-
-.card-img {
-    background-color: #292929;
-    height: 250px;
-    width: 400px;
-    border-radius: 12px;
-
-}
-
-.card-img img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-}
-
-.card-info-box {
-    width: 300px;
-    overflow: hidden;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.card-info-box h5 {
-    display: block;
-    font-size: 25px;
-    margin-block-start: 5px;
-    margin-block-end: 5px;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.floating-button {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    background-color: #36d1bf;
-    border-radius: 25%;
-    width: 80px;
-    height: 80px;
-    text-align: center;
-    font-weight: 800;
-    text-decoration: none;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    z-index: 1000;
-}
-
-#write-button {
-    bottom: 120px;
-}
-
-#chat-button {
-    bottom: 40px;
-}
-
 #chat-circle {
     position: fixed;
     bottom: 40px;
     right: 40px;
-    background-color: #36d1bf;
-    border-radius: 50%;
+    background: #1e1e1e;
     width: 80px;
     height: 80px;
-    text-align: center;
-    font-weight: 800;
-    text-decoration: none;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
+    border-radius: 50%;
+    color: white;
+    padding: 28px;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .chatbot-container {
