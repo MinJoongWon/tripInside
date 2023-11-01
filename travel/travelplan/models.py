@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from user_app.models import CustomUser
 
 
-# 포스트상품
+
 class PostPlan(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
