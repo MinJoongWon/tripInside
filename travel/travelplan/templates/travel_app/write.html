@@ -27,7 +27,7 @@
                 {% csrf_token %}
                 <div class="flex-box">
                   <label class="img-upload">
-                    <img src="{% if post %}{{ post.thumbnail.url }}{% else %}{% static 'img/camera.jpg' %}{% endif %}" alt="이미지" id="imagePreview">
+                    <img src="{% if post.postimage %}{{ post.postimage.url }}{% else %}{% static 'img/camera.jpg' %}{% endif %}" alt="이미지" id="imagePreview">
                     <input type="file" name="postimage" accept="image/*" style="display: none;" onchange="previewImage(event);">
                   </label>
                   <div class="middlebox">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="full-box">
                   <label for="traveldate" class="block-box">여행 희망 날짜</label>
-                  <input type="text" name="traveldate" placeholder="여행 희망 날짜" required="required" value="{% if post %}{{ post.product }}{% endif %}">
+                  <input type="text" name="traveldate" placeholder="여행 희망 날짜" value="{% if post %}{{ post.traveldate }}{% endif %}">
                 </div>
                 <div class="submit-button-box">
                   {% if post %}

@@ -5,6 +5,11 @@ from .forms import PostForm, CommentForm
 
 from django.urls import reverse
 
+import pdfkit
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.views import View
+
 # Create your views here.
 
 
@@ -32,6 +37,9 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)  # 임시 저장
             post.author_id = request.user.id
+            post.location = request.POST.get("location", "")
+            post.status = request.POST.get("status", "")
+            post.traveldate = request.POST.get("traveldate", "")
             if "postimage" in request.FILES:
                 post.postimage = request.FILES["postimage"]
             else:
@@ -53,7 +61,6 @@ def main_post(request, pk):
         # html에서 delete-button name의 인풋을 눌러서 작동
         if "delete-button" in request.POST:
             post.delete()
-            # 포스트페이지로 가는게 맞아서 나중에 바꿀것
             return render(request, "travel_app/main.html")
     #  조회수 증가
     post.view += 1
@@ -72,7 +79,6 @@ def edit_post(request, post_id):
         post.description = post.description.strip()
     if request.method == "POST":
         post.title = request.POST.get("title", "")
-        post.product = request.POST.get("product", "")
         post.description = request.POST.get("description", "")
         post.status = request.POST.get("status", "")
         post.location = request.POST.get("location", "")
@@ -122,3 +128,28 @@ def add_comment(request, post_id):
 
     # 댓글 작성에 실패하면 여기로 돌아갈 수 있도록 설정할 수 있습니다.
     return redirect(reverse("travel_app:main_post", args=[post_id]))
+
+
+# PDF변환
+class HTMLToPDFView(View):
+    def get(self, request, pk, *args, **kwargs):
+        # 특정 PostPlan 객체 불러오기
+        post = get_object_or_404(PostPlan, pk=pk)
+
+        # HTML 템플릿 렌더링
+        html_string = render_to_string("travel_app/main_post.html", {"post": post})
+
+        # wkhtmltopdf의 경로 설정 및 옵션 설정
+        config = pdfkit.configuration(
+            wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"
+        )
+        options = {"no-images": None, "debug-javascript": None}
+
+        # HTML을 PDF로 변환
+        pdf = pdfkit.from_string(html_string, False, options=options, configuration=config)
+
+        # PDF 파일 응답 생성
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = 'attachment; filename="output.pdf"'
+
+        return response

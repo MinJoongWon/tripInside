@@ -28,7 +28,7 @@
                   <a href="{% url 'travel_app:main_post' post.pk %}">
                     <div class="card-img">
                       {% if post.postimage %}
-                      <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
+                      <img src="{{ post.postimage.url }}" alt="{{ post.title }}" onerror="this.onerror=null; this.src='{% static 'img/pic-none.jpg' %}'">
                       {% else %}
                         <!-- 기본 이미지 또는 이미지 없음 표시 -->
                       <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}">

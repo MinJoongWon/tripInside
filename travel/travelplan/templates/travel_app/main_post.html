@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %} ">
   <link rel="stylesheet" type="text/css" href="{% static "css/nav.css" %} ">
-  <link rel="stylesheet" type="text/css" href="{% static "css/post.css" %} ">    
+  <link rel="stylesheet" type="text/css" href="{% static "css/post.css" %} ">
   <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
   <link rel="icon" href="{% static 'img/favicon.png'%}">
-  <title>게시글-{{post.title}}</title>
+    <title>게시글-{{post.title}}</title>
 </head>
 <body>
-    {% include 'travel_app/nav.html' %}
+        {% include 'travel_app/nav.html' %}
     <div class="content-box">
       <div class="post-container">
         <div class="post-box">
           {% block content %}
           {% if post.postimage %}
-          <img src="{{ post.postimage.url }}" alt="{{ post.title }}">
+          <img src="{{ post.postimage.url }}" alt="{{ post.title }}" onerror="this.onerror=null; this.src='{% static 'img/pic-none.jpg' %}'">
           {% else %}
           <!-- 기본 이미지 또는 이미지 없음 표시 -->
           <img src="{% static 'img/pic-none.jpg' %}" alt="{{ post.title }}">
@@ -42,12 +42,12 @@
             <div class="post-info-box">
               <div class="flex-box between">
                 <h3>{{ post.title }}</h3>
-                <h4>{{ post.status }}</h4>
+                <h4>여행상태 | {{ post.status }}</h4>
               </div>
-              <p>여행지 | {{ user.location }}</p>
+              <p>여행지 | {{ post.location }}</p>
               <p>설명 |<br>{{ post.description }}</p>
               <div class="location-views-box flex-box between">
-                <p>희망여행일자 | {{ post.location }}</p>
+                <p>희망여행일자 | {{ post.traveldate }}</p>
                 <p>조회수 | {{ post.view }} </p> 
                 <p>좋아요 | 👍 {{ post.like }}</p>
                 <p>작성일 | {{ post.created_at }}</p> 
