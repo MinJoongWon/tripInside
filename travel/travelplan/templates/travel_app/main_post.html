@@ -49,7 +49,7 @@
               <div class="location-views-box flex-box between">
                 <p>희망여행일자 | {{ post.traveldate }}</p>
                 <p>조회수 | {{ post.view }} </p> 
-                <p>좋아요 | 👍 {{ post.like }}</p>
+                <button id="like-button" data-post-id="{{ post.id }}">👍 <span id="like-count">{{ post.likes.count }}</span></button>
                 <p>작성일 | {{ post.created_at }}</p> 
               </div>
             </div>
@@ -59,8 +59,7 @@
               <ul>
                 {% for comment in comments %}
                   <li>
-                    <p class="author">{{ comment.author }}:</p>
-                    <p class="text">{{ comment.text }}</p>
+                    <p class="author">{{ comment.user.nickname }} : {{ comment.comment }}</p>
                   </li>
                 {% empty %}
                   <li>댓글이 없습니다.</li>
@@ -70,9 +69,10 @@
             {% if user.is_authenticated %}
             <form method="post" action="{% url 'travel_app:add_comment' post_id=post.id %}">
               {% csrf_token %}
-              댓글 | <input type="text" placeholder="적기전에 생각했나요?">
+              댓글 | <input type="text" name="comment" placeholder="적기전에 생각했나요?">
               <button class='comment-button' type="submit">댓글 작성</button>
             </form>
+          
             {% else %}
             <p>댓글을 작성하려면 로그인이 필요합니다.</p>
             {% endif %}
@@ -83,6 +83,34 @@
     {% include 'travel_app/footer.html' %}
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#like-button').click(function() {
+        var postId = $(this).data('post-id');
+        var likeButton = $(this);
+        var likeCount = $('#like-count');
+        
+        $.ajax({
+            url: '/like/' + postId + '/',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            success: function(response) {
+                likeCount.text(response.result);
+                
+                if (likeButton.hasClass('liked')) {
+                    likeButton.removeClass('liked');
+                } else {
+                    likeButton.addClass('liked');
+                }
+            }
+        });
+    });
+});
+</script>
 <script>
   function confirmDelete() {
     var result = confirm("정말 진짜 삭제하시겠습니까?");

@@ -38,9 +38,10 @@
                       <h5>{{ post.title }}</h5>
                       <div class="flex-box">
                         <p>여행상태 |{{post.status}}</p>
-                        <p>설명 | {{post.description|truncatechars:18}}</p>
+                        <p>설명 | {{post.description|truncatechars:30}}</p>
                         <p>조회수   | {{ post.view }}</p>
-                        <p>댓글수   | 0{{post.comment}}</p>
+                        <p>좋아요   | {{ post.likes.count }}</p>
+                        <p>댓글수   | {{post.comment_set.count}}</p>
                         <p>여행일자 | {{post.traveldate}}</p>
                       </div>
                     </div>

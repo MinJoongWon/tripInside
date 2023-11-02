@@ -10,6 +10,10 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.views import View
 
+
+from django.http import JsonResponse
+from .models import Like
+
 # Create your views here.
 
 
@@ -85,8 +89,6 @@ def edit_post(request, post_id):
         post.traveldate = request.POST.get("traveldate", "")
         if "postimage" in request.FILES:
             post.postimage = request.FILES["postimage"]
-        else:
-            post.postimage = None
         post.save()
         return redirect("travel_app:main_post", pk=post_id)
     context = {"post": post}
@@ -117,8 +119,8 @@ def add_comment(request, post_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post = post
-            comment.author = request.user.nickname
+            comment.post_plan = post
+            comment.user = request.user
             comment.save()
 
             # 댓글을 저장한 후 해당 게시물 상세 페이지로 리디렉션
@@ -130,7 +132,7 @@ def add_comment(request, post_id):
     return redirect(reverse("travel_app:main_post", args=[post_id]))
 
 
-# PDF변환
+# PDF변환 #장고에서는 사용이어렵다
 class HTMLToPDFView(View):
     def get(self, request, pk, *args, **kwargs):
         # 특정 PostPlan 객체 불러오기
@@ -153,3 +155,19 @@ class HTMLToPDFView(View):
         response["Content-Disposition"] = 'attachment; filename="output.pdf"'
 
         return response
+
+
+# 좋아요~
+def like_post(request, post_id):
+    post = get_object_or_404(PostPlan, id=post_id)
+    user = request.user
+
+    if request.method == "POST":
+        if post.likes.filter(user=user).exists():  # 이미 좋아요를 눌렀다면
+            post.likes.filter(user=user).delete()  # 좋아요 취소
+            result = post.likes.count()  # 좋아요 개수 업데이트
+            return JsonResponse({"result": result})  # 좋아요 개수 반환
+        else:
+            Like.objects.create(user=user, post_plan=post)  # 좋아요
+            result = post.likes.count()  # 좋아요 개수 업데이트
+            return JsonResponse({"result": result})  # 좋아요 개수 반환

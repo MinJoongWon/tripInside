@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from user_app.models import CustomUser
 
 
-
 class PostPlan(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -36,6 +35,5 @@ class Comment(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    post_plan = models.ForeignKey(PostPlan, on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    post_plan = models.ForeignKey(PostPlan, on_delete=models.CASCADE, related_name="likes")
     like_upload_date = models.DateTimeField(auto_now_add=True)

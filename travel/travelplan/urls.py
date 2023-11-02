@@ -14,5 +14,6 @@ urlpatterns = [
     path("edit/<int:post_id>/", views.edit_post, name="edit"),
     path("delete/<int:pk>/", views.post_delete, name="delete"),
     path("main_post/<int:post_id>", views.add_comment, name="add_comment"),
+    path("like/<int:post_id>/", views.like_post, name="like_post"),
     path("html_to_pdf/<int:pk>/", HTMLToPDFView.as_view(), name="html_to_pdf"),  # PDF 변환 URL 패턴 추가
 ]
