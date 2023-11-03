@@ -59,17 +59,18 @@ def create_post(request):
 
 # 게시글 상세보기
 def main_post(request, pk):
-    # poss id 번호 불러옴
+    # post id 번호 불러옴
     post = get_object_or_404(PostPlan, pk=pk)
     if request.method == "POST":
         # html에서 delete-button name의 인풋을 눌러서 작동
         if "delete-button" in request.POST:
             post.delete()
             return render(request, "travel_app/main.html")
-    #  조회수 증가
+    # 조회수 증가
     post.view += 1
     post.save()
-    comments = Comment.objects.all().order_by("-chrmt_upload_date")
+    # 해당 게시글에 속한 댓글만 가져오도록 수정
+    comments = post.comment_set.all()
 
     context = {"post": post, "comments": comments}
 
